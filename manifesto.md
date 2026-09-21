@@ -1,6 +1,6 @@
 # Fleet SysOps Manifesto
 
-A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the same time, on servers they have root on. A sysop is the one human running the fleet. This is how we run it.
+A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the same time, on servers they have root on. A sysop is the one human running the fleet. Some call the practice fleet coding, and the person doing it a fleet coder. This is how we run it.
 
 - We test in prod.
 - We build in prod.
@@ -31,7 +31,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 
 ## The sysop
 
-One person. A fleet of agents. The job is not to write the code. The job is to run the fleet: pick the work, read what came back, kill what went wrong, merge what did not. Everything above exists so one sysop can run many agents and still know what the fleet did.
+One person. A fleet of agents. Call it fleet coding if you like; the job is not to write the code. The job is to run the fleet: pick the work, read what came back, kill what went wrong, merge what did not. Everything above exists so one sysop can run many agents and still know what the fleet did.
 
 Signed in prod, 2026-09-21.
 
