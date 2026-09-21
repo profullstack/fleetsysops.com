@@ -3,15 +3,17 @@
  *
  * Every document is a `.md` file in this directory, served as text. `/` is `index.md`,
  * `/manifesto` is `manifesto.md`, and a missing page is `404.md` with a 404 status.
- * Browsers get `text/plain` so they show the source instead of offering a download;
- * everything else (curl, agents, readm3.com fetching a page to render it) gets
- * `text/markdown`. Every response allows any origin, which is what lets the `html`
- * link at the bottom of each page hand the file to readm3.com.
+ * Browsers get the exact source in a `<pre>`, with every link clickable, because a
+ * browser shows plain text as dead characters and the `html` link at the bottom of
+ * each page has to be a link. Everything else (curl, agents, readm3.com fetching a
+ * page to render it) gets raw `text/markdown`. `/<page>.html` redirects to the
+ * readm3.com render. Every response allows any origin, which is what lets readm3.com
+ * fetch the file.
  *
  * Nothing that is not a Markdown file is ever served.
  */
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { join, normalize, sep } from "node:path";
+import { join, normalize, relative, sep } from "node:path";
 
 export const root = import.meta.dir;
 export const SITE = (process.env.SITE_URL ?? "https://fleetsysops.com").replace(/\/$/, "");
@@ -34,10 +36,44 @@ export function resolve(pathname: string): string | null {
   return null;
 }
 
-/** Browsers announce text/html; they get plain text so the Markdown displays inline. */
+/** A browser announces text/html; everything else is a program that wants the Markdown. */
+function isBrowser(request: Request): boolean {
+  return (request.headers.get("accept") ?? "").includes("text/html");
+}
+
 function contentType(request: Request): string {
-  const accept = request.headers.get("accept") ?? "";
-  return accept.includes("text/html") ? "text/plain; charset=utf-8" : "text/markdown; charset=utf-8";
+  return isBrowser(request) ? "text/html; charset=utf-8" : "text/markdown; charset=utf-8";
+}
+
+const escape = (text: string) => text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+/**
+ * The browser view: the Markdown source, verbatim, in a <pre>, with Markdown links and
+ * bare URLs wrapped in anchors so they can be clicked. Nothing is rendered; a reader
+ * who wants rendering follows the html link.
+ */
+export function browserPage(source: string, name: string): string {
+  const link = /\[([^\]\n]+)\]\(((?:https?:\/\/|\/)[^\s)]+)\)|https?:\/\/[^\s<>)"']+/g;
+  let html = "";
+  let last = 0;
+  for (const match of source.matchAll(link)) {
+    html += escape(source.slice(last, match.index));
+    const href = match[2] ?? match[0];
+    html += `<a href="${escape(href)}">${escape(match[0])}</a>`;
+    last = match.index + match[0].length;
+  }
+  html += escape(source.slice(last));
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escape(name)} · fleetsysops.com</title>
+<style>
+:root{color-scheme:light dark}
+body{margin:0;background:#fff;color:#111}
+pre{margin:0;padding:24px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:80ch}
+a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+@media (prefers-color-scheme:dark){body{background:#0d1117;color:#e6edf3}}
+</style></head><body><pre>${html}</pre></body></html>
+`;
 }
 
 function headers(request: Request, extra: Record<string, string> = {}): Headers {
@@ -68,14 +104,20 @@ export function handle(request: Request): Response {
     return Response.redirect(`${url.origin}${url.pathname.replace(/\/+$/, "")}${url.search}`, 308);
   }
 
-  const file = resolve(url.pathname);
-  if (file) {
-    const body = request.method === "HEAD" ? null : readFileSync(file);
-    return new Response(body, { status: 200, headers: headers(request) });
+  if (url.pathname.endsWith(".html")) {
+    const page = url.pathname.slice(0, -5);
+    if (resolve(`${page}.md`)) return Response.redirect(`https://readm3.com/viewer?url=${SITE}${page}.md`, 302);
   }
+
+  const file = resolve(url.pathname);
+  if (file) return respond(request, readFileSync(file, "utf8"), 200, file);
   const missing = join(root, "404.md");
-  const body = existsSync(missing) ? readFileSync(missing) : "not found\n";
-  return new Response(request.method === "HEAD" ? null : body, { status: 404, headers: headers(request, { "cache-control": "no-store" }) });
+  return respond(request, existsSync(missing) ? readFileSync(missing, "utf8") : "not found\n", 404, missing, { "cache-control": "no-store" });
+}
+
+function respond(request: Request, source: string, status: number, file: string, extra: Record<string, string> = {}): Response {
+  const body = isBrowser(request) ? browserPage(source, relative(root, file)) : source;
+  return new Response(request.method === "HEAD" ? null : body, { status, headers: headers(request, extra) });
 }
 
 if (import.meta.main) {

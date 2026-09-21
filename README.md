@@ -7,7 +7,8 @@ Every page on the site is a `.md` file in the root of this repository. There is 
 ## How a page is served
 
 - `/` is `index.md`. `/manifesto` and `/manifesto.md` are both `manifesto.md`. A missing page is `404.md` with a 404 status.
-- A browser (anything that sends `Accept: text/html`) gets `text/plain`, so the source displays inline instead of downloading. Everything else gets `text/markdown`.
+- A browser (anything that sends `Accept: text/html`) gets the verbatim source in a `<pre>`, with Markdown links and bare URLs made clickable, because plain text in a browser has no links. Nothing is rendered. Everything else gets raw `text/markdown`.
+- `/<page>.html` redirects to the readm3.com render of that page.
 - Every response carries `Access-Control-Allow-Origin: *`, so a reader on any origin can fetch a page. That is what the **html** link at the bottom of each page relies on: it hands the file to [readm3.com](https://readm3.com), which renders it in the browser.
 - Only `.md` files are served. Dotfiles, the server, this README's neighbours in `.github`: none of it is reachable.
 - `www.` redirects to the apex.
