@@ -1,6 +1,6 @@
 # fleetsysops.com
 
-The [Fleet SysOps Manifesto](https://fleetsysops.com/manifesto.md) and the documents that follow it, served as nothing but Markdown.
+The [Fleet SysOps Manifesto](https://fleetsysops.com/manifesto.md), for the one human running a fleet of coding agents, and the documents that follow it, served as nothing but Markdown.
 
 Every page on the site is a `.md` file in the root of this repository. There is no HTML, no JavaScript, no build. `server.ts` hands the files out as text and that is the whole site.
 
