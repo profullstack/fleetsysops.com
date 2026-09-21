@@ -1,6 +1,6 @@
 # Fleet SysOps
 
-Documents for people who run a fleet of boxes by hand, and like it.
+Documents for the sysop: the one human running a fleet of coding agents, and the servers they run on.
 
 ## Documents
 
