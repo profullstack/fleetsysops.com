@@ -1,0 +1,11 @@
+{
+  "name": "fleetsysops.com",
+  "private": true,
+  "description": "fleetsysops.com: the Fleet SysOps Manifesto and other documents, served as nothing but Markdown",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "bun server.ts",
+    "test": "bun test"
+  }
+}
