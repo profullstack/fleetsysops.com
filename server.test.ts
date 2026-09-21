@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { handle, resolve, root, SITE } from "./server.ts";
+import { browserPage, handle, resolve, root, SITE } from "./server.ts";
 
 const get = (path: string, init: RequestInit & { host?: string } = {}) => {
   const { host, ...rest } = init;
@@ -20,11 +20,30 @@ describe("the Markdown server", () => {
     expect(await response.text()).toStartWith("# Fleet SysOps");
   });
 
-  test("gives a browser text/plain so the source displays instead of downloading", async () => {
+  test("gives a browser the verbatim source in a <pre> with the links clickable", async () => {
     const response = get("/manifesto.md", { headers: { accept: "text/html,application/xhtml+xml,*/*;q=0.8" } });
     expect(response.status).toBe(200);
-    expect(response.headers.get("content-type")).toBe("text/plain; charset=utf-8");
-    expect(await response.text()).toContain("We test in prod.");
+    expect(response.headers.get("content-type")).toBe("text/html; charset=utf-8");
+    const html = await response.text();
+    expect(html).toContain("<pre>");
+    expect(html).toContain("- We test in prod.");
+    expect(html).toContain('<a href="https://readm3.com/viewer?url=https://fleetsysops.com/manifesto.md">[html](https://readm3.com/viewer?url=https://fleetsysops.com/manifesto.md)</a>');
+    expect(html).toContain("<title>manifesto.md · fleetsysops.com</title>");
+  });
+
+  test("escapes the source in the browser view and links bare URLs", () => {
+    const html = browserPage("# T\n\n<script>alert(1)</script> see https://example.com/a?b=1 and [x](/y.md).", "t.md");
+    expect(html).not.toContain("<script>");
+    expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
+    expect(html).toContain('<a href="https://example.com/a?b=1">https://example.com/a?b=1</a>');
+    expect(html).toContain('<a href="/y.md">[x](/y.md)</a>');
+  });
+
+  test("redirects /<page>.html to the readm3.com render, and 404s an unknown one", async () => {
+    const response = get("/manifesto.html");
+    expect(response.status).toBe(302);
+    expect(response.headers.get("location")).toBe("https://readm3.com/viewer?url=https://fleetsysops.com/manifesto.md");
+    expect(get("/nope.html").status).toBe(404);
   });
 
   test("resolves an extensionless path to the .md file and strips a trailing slash", async () => {
@@ -45,6 +64,9 @@ describe("the Markdown server", () => {
     expect(response.status).toBe(404);
     expect(response.headers.get("content-type")).toBe("text/markdown; charset=utf-8");
     expect(await response.text()).toStartWith("# Not found");
+    const browser = get("/nope", { headers: { accept: "text/html" } });
+    expect(browser.status).toBe(404);
+    expect(await browser.text()).toContain("# Not found");
   });
 
   test("never serves anything that is not a Markdown file", () => {

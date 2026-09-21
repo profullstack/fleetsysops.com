@@ -12,7 +12,7 @@ More documents land here as they get written.
 
 Every page is a Markdown file and nothing else. No HTML, no JavaScript, no build step.
 
-Read it here as text, fetch it with curl, pipe it through readm3, or click **html** at the bottom of any page to render it with readm3.com.
+In a browser you see the source as written, links included. Fetch it with curl, pipe it through readm3, or click **html** at the bottom of any page to render it with readm3.com. Swapping `.md` for `.html` in the address does the same.
 
     curl https://fleetsysops.com/manifesto.md
     curl -s https://fleetsysops.com/manifesto.md | npx @profullstack/readm3 --print
