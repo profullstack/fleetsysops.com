@@ -1,6 +1,6 @@
 # Fleet SysOps
 
-Documents for the sysop: the one human running a fleet of coding agents, and the servers they run on.
+Documents for the sysop: the one human running a fleet of coding agents, and the servers they run on. Also known as fleet coding.
 
 ## Documents
 
