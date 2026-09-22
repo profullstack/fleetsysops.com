@@ -26,7 +26,7 @@ describe("the Markdown server", () => {
     expect(response.headers.get("content-type")).toBe("text/html; charset=utf-8");
     const html = await response.text();
     expect(html).toContain("<pre>");
-    expect(html).toContain("- We test in prod.");
+    expect(html).toContain("- We test in prod and never rollback.");
     expect(html).toContain('<a href="https://readm3.com/viewer?url=https://fleetsysops.com/manifesto.md">[html](https://readm3.com/viewer?url=https://fleetsysops.com/manifesto.md)</a>');
     expect(html).toContain("<title>manifesto.md · fleetsysops.com</title>");
   });

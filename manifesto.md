@@ -2,7 +2,7 @@
 
 A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the same time, on servers they have root on. A sysop is the one human running the fleet. Some call the practice fleet coding, and the person doing it a fleet coder. This is how we run it.
 
-- We test in prod.
+- We test in prod and never rollback.
 - We build in prod.
 - We code in prod.
 - Root everywhere.
@@ -16,7 +16,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 
 ## Notes
 
-**We test in prod.** An agent's work is done when it is live and verified there, not when a test passed on a laptop. Prod is the only environment that tells the truth.
+**We test in prod and never rollback.** An agent's work is done when it is live and verified there, not when a test passed on a laptop. Prod is the only environment that tells the truth. When it breaks, the fix goes forward, on top of the break. There is no previous version to run back to, only the next one.
 
 **We build in prod.** The agent builds on the box that serves. There is no pipeline standing between the agent and the user.
 
