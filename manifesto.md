@@ -6,7 +6,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We build in prod.
 - We code in prod.
 - Root everywhere.
-- No Kubernetes. No cloud shit.
+- No Kubernetes. No cloud shit. Bare metal only.
 - `--yolo` mode enabled.
 - We scale when we need to.
 - Everything ships with a TUI, a CLI, an MCP and an API.
@@ -22,7 +22,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 
 **Root everywhere.** An agent that has to ask permission for every step is a chat window. Give it root, give it the keys, read the log.
 
-**No Kubernetes. No cloud shit.** The fleet runs on boxes with a hostname, a disk and an IP. Agents ssh in. Nobody writes YAML.
+**No Kubernetes. No cloud shit. Bare metal only.** The fleet runs on boxes with a hostname, a disk and an IP. Agents ssh in. Nobody writes YAML. Nobody rents a control plane.
 
 **`--yolo` mode enabled.** Every agent runs with the flag on. The sysop reads the transcript after, not the prompt before.
 
