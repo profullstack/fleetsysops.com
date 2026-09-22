@@ -12,6 +12,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We automate everything.
 - Everything ships with a TUI, a CLI, an MCP and an API.
 - We *are* the moat.
+- We work in our dad's workshop, not our mom's basement.
 
 ## Notes
 
@@ -34,6 +35,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **A TUI, a CLI, an MCP and an API.** Everything we build ships all four, because the sysop works from a terminal and the agents work from a socket, and both need the same thing.
 
 **We *are* the moat.** There is no model, no framework and no cloud account that a competitor cannot buy tomorrow. What they cannot buy is a sysop who has run a fleet through a thousand prods and the agents, tools and habits that came out of it. The moat is us.
+
+**We work in our dad's workshop, not our mom's basement.** A workshop has a bench, real tools, a floor that gets swept and things that leave it finished. A basement has a couch. The fleet is here to ship, and the sysop keeps the shop.
 
 ## The sysop
 
