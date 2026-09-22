@@ -14,6 +14,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We *are* the moat.
 - We work in our dad's workshop, not our mom's basement.
 - We eat our own dogfood.
+- We smoke sploofs.
 
 ## Notes
 
@@ -40,6 +41,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We work in our dad's workshop, not our mom's basement.** A workshop has a bench, real tools, a floor that gets swept and things that leave it finished. A basement has a couch. The fleet is here to ship, and the sysop keeps the shop.
 
 **We eat our own dogfood.** Every tool the fleet ships is a tool the fleet runs on. This site went to prod through the same CLIs, vaults and agents we hand to everyone else. If it is not good enough for us in prod, it is not good enough to ship, and we find out first.
+
+**We smoke sploofs.** Cigar tobacco and weed, crumbled together and packed in a regular tobacco pipe. No rolling, no papers, nothing to fuss over, so both hands stay on the fleet. Light it, read the transcript, kill what went wrong. The blend comes out of the same workshop: [cigarunderground.org](https://cigarunderground.org/#sploof).
 
 ## The sysop
 
