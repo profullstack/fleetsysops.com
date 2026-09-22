@@ -9,7 +9,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - No Kubernetes. No cloud shit. Bare metal only.
 - `--yolo` mode enabled.
 - We scale when we need to.
-- We automated everything.
+- We automate everything.
 - Everything ships with a TUI, a CLI, an MCP and an API.
 - We *are* the moat.
 
@@ -27,7 +27,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 
 **`--yolo` mode enabled.** Every agent runs with the flag on. The sysop reads the transcript after, not the prompt before.
 
-**We automated everything.** If a human did it twice, an agent does it now. Deploys, DNS, posts, invoices, the nightly report, this site. The sysop's hands touch the keyboard to pick work and to kill work, nothing else.
+**We automate everything.** If a human did it twice, an agent does it now. Deploys, DNS, posts, invoices, the nightly report, this site. The sysop's hands touch the keyboard to pick work and to kill work, nothing else.
 
 **We scale when we need to.** More agents when there is more work. More boxes when one falls over. Nothing pre-provisioned, nothing predicted.
 
