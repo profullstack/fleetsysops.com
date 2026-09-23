@@ -15,6 +15,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We work in our dad's workshop, not our mom's basement.
 - We eat our own dogfood.
 - We smoke sploofs.
+- Our favorite teams are the Pittsburgh Pirates and the Tampa Bay Buccaneers.
 
 ## Notes
 
@@ -43,6 +44,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We eat our own dogfood.** Every tool the fleet ships is a tool the fleet runs on. This site went to prod through the same CLIs, vaults and agents we hand to everyone else. If it is not good enough for us in prod, it is not good enough to ship, and we find out first.
 
 **We smoke sploofs.** Cigar tobacco and weed, crumbled together and packed in a regular tobacco pipe. No rolling, no papers, nothing to fuss over, so both hands stay on the fleet. Light it, read the transcript, kill what went wrong. The blend comes out of the same workshop: [cigarunderground.org](https://cigarunderground.org/#sploof).
+
+**Our favorite teams are the Pittsburgh Pirates and the Tampa Bay Buccaneers.** The Bucs and the Bucs. One flies the Jolly Roger at PNC Park, the other fires cannons off a pirate ship every time they score. A fleet flies a black flag.
 
 ## The sysop
 
