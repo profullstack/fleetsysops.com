@@ -6,6 +6,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We build in prod.
 - We code in prod.
 - Root everywhere.
+- Our API keys are always "God Mode".
 - No Kubernetes. No cloud shit. Bare metal only.
 - `--yolo` mode enabled.
 - We scale when we need to.
@@ -27,6 +28,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We code in prod.** Agents ship straight to main. A pull request is how a human reads the change, not where it waits.
 
 **Root everywhere.** An agent that has to ask permission for every step is a chat window. Give it root, give it the keys, read the log.
+
+**Our API keys are always "God Mode".** A scoped key is a bet that you guessed next week's work correctly. Every key the fleet holds is the whole key: read, write, admin, delete. An agent that hits a permission wall at 3am stops, and a stopped agent is worth less than the blast radius you saved. Keys live in the vault, never in a .env, and the sysop rotates them when a box or a person leaves the fleet. If you cannot trust an agent with the whole key, do not hand it the box.
 
 **No Kubernetes. No cloud shit. Bare metal only.** The fleet runs on boxes with a hostname, a disk and an IP. Agents ssh in. Nobody writes YAML. Nobody rents a control plane.
 
