@@ -13,6 +13,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We scale when we need to.
 - We automate everything.
 - Everything ships with a TUI, a CLI, an MCP and an API.
+- One hostname per site. www 301s to the apex.
 - We *are* the moat.
 - We work in our dad's workshop, not our mom's basement.
 - We eat our own dogfood.
@@ -43,6 +44,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We scale when we need to.** More agents when there is more work. More boxes when one falls over. Nothing pre-provisioned, nothing predicted.
 
 **A TUI, a CLI, an MCP and an API.** Everything we build ships all four, because the sysop works from a terminal and the agents work from a socket, and both need the same thing.
+
+**One hostname per site.** Every site answers on its bare domain. `www.` and plain `http://` send a 301 there with the path kept, and never serve the app a second time. Two hostnames are two caches, two cookie jars and two answers to whether the site is up. Set it at launch, check it with one curl, and let the deploy script write it so nobody has to remember.
 
 **We *are* the moat.** There is no model, no framework and no cloud account that a competitor cannot buy tomorrow. What they cannot buy is a sysop who has run a fleet through a thousand prods and the agents, tools and habits that came out of it. The moat is us.
 
