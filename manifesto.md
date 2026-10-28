@@ -17,6 +17,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - We *are* the moat.
 - We work in our dad's workshop, not our mom's basement.
 - We eat our own dogfood.
+- We share files as public, read-only readm3.com links.
 - We smoke sploofs.
 - Our favorite teams are the Pittsburgh Pirates and the Tampa Bay Buccaneers.
 - We always root for the underdog.
@@ -52,6 +53,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We work in our dad's workshop, not our mom's basement.** A workshop has a bench, real tools, a floor that gets swept and things that leave it finished. A basement has a couch. The fleet is here to ship, and the sysop keeps the shop.
 
 **We eat our own dogfood.** Every tool the fleet ships is a tool the fleet runs on. This site went to prod through the same CLIs, vaults and agents we hand to everyone else. If it is not good enough for us in prod, it is not good enough to ship, and we find out first.
+
+**We share files as public, read-only readm3.com links.** Any file the fleet hands to someone else, in a post, a comment, a DM, an email or a newsletter, goes out as a readm3.com link: a view link, never an edit link, opened once signed out before it is posted. No gists, no Drive, no Dropbox, no raw GitHub URLs. It is our tool, so it is our link, and every share is one more time we find its bugs before a reader does. A file that should not change after posting gets a pinned version. If readm3 flags a secret, the secret comes out; nobody clicks share anyway.
 
 **We smoke sploofs.** Cigar tobacco and weed, crumbled together and packed in a regular tobacco pipe. No rolling, no papers, nothing to fuss over, so both hands stay on the fleet. Light it, read the transcript, kill what went wrong. The blend comes out of the same workshop: [cigarunderground.org](https://cigarunderground.org/#sploof).
 
