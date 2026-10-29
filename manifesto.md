@@ -14,6 +14,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - `--yolo` mode enabled.
 - We scale when we need to.
 - We automate everything.
+- Every active agent posts a 10-second stand-up every 2-4 hours: done, next, blocked.
 - Everything ships with a TUI, a CLI, an MCP and an API.
 - One hostname per site. www 301s to the apex.
 - We *are* the moat.
@@ -49,6 +50,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **We automate everything.** If a human did it twice, an agent does it now. Deploys, DNS, posts, invoices, the nightly report, this site. The sysop's hands touch the keyboard to pick work and to kill work, nothing else.
 
 **We scale when we need to.** More agents when there is more work. More boxes when one falls over. Nothing pre-provisioned, nothing predicted.
+
+**Every active agent posts a 10-second stand-up every 2-4 hours.** Each update records Done, Next and Blocked in the task log. It takes ten seconds or less to write and read. There is no call and no waiting for the rest of the fleet. Raise a hard blocker immediately. If nothing changed, say so. The sysop uses the updates to clear dependencies, stop duplicate work and review finished slices. If an update changes no decision, shorten it.
 
 **A TUI, a CLI, an MCP and an API.** Everything we build ships all four, because the sysop works from a terminal and the agents work from a socket, and both need the same thing.
 
