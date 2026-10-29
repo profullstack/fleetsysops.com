@@ -8,6 +8,7 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 - Root everywhere.
 - Our API keys are always "God Mode".
 - Agents rotate the keys. Nobody waits for a human to do it.
+- Trust but verify. Always, no exceptions.
 - Auto-recharge enabled with a healthy cap.
 - No Kubernetes. No cloud shit. Bare metal only.
 - `--yolo` mode enabled.
@@ -36,6 +37,8 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 **Our API keys are always "God Mode".** A scoped key is a bet that you guessed next week's work correctly. Every key the fleet holds is the whole key: read, write, admin, delete. An agent that hits a permission wall at 3am stops, and a stopped agent is worth less than the blast radius you saved. Keys live in the vault, never in a .env, and the fleet rotates them on its own. If you cannot trust an agent with the whole key, do not hand it the box.
 
 **Agents rotate the keys. Nobody waits for a human to do it.** A God Mode key is only safe if it does not live long. Rotation is a job the fleet runs, not a chore on the sysop's list: the agent mints the new key, writes it to the vault, redeploys everything that reads it, proves the new one works in prod and revokes the old one, in that order, on a schedule and again the minute something smells off. A leaked key, a box that left the fleet, a person who left the fleet, a secret that showed up in a commit or a log: rotate first, investigate after. A key nobody has rotated in a year is a key somebody else already has.
+
+**Trust but verify. Always, no exceptions.** An agent saying it is done, a human saying "we already ran it", a green check, a config file that reads right: none of them is proof. Proof is the box answering. After every change the fleet checks the live result from the outside, with a fresh connection that cannot ride an old one: a new ssh login with only the new key, a curl from another box, the auth log for who actually got in. We learned it the hard way. A tunnel key we had "cleaned up" still let an intruder back in the same night, and a lockdown everyone remembered running had never touched the server. Verify yours, verify the agent's, verify the sysop's. The check costs a minute. Skipping it costs the fleet.
 
 **Auto-recharge enabled with a healthy cap.** Every account the fleet spends from tops itself back up without being asked. A balance that hits zero does not slow the fleet down, it stops all of it at once, mid deploy, and the sysop hears about it from a customer instead of a log. The cap is where the caution goes: high enough that a normal week never touches it, low enough that a runaway loop burns a number you can shrug at. Recharge off is not thrift, it is an outage scheduled for a quiet Sunday.
 
