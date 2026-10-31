@@ -4,6 +4,9 @@
   "description": "fleetsysops.com: the Fleet SysOps Manifesto, for the human running a fleet of coding agents, served as nothing but Markdown",
   "license": "MIT",
   "type": "module",
+  "dependencies": {
+    "@profullstack/footer": "latest"
+  },
   "scripts": {
     "start": "bun server.ts",
     "test": "bun test"

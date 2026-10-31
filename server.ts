@@ -14,6 +14,7 @@
  */
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, relative, sep } from "node:path";
+import { footerHtmlSync } from "@profullstack/footer";
 
 export const root = import.meta.dir;
 export const SITE = (process.env.SITE_URL ?? "https://fleetsysops.com").replace(/\/$/, "");
@@ -46,6 +47,12 @@ function contentType(request: Request): string {
 }
 
 const escape = (text: string) => text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+const footerLinks = [
+  { label: "Manifesto", href: "/manifesto.md" },
+  { label: "Source", href: "https://github.com/profullstack/fleetsysops.com" },
+  { label: "HTML view", href: "https://readm3.com/viewer?url=https://fleetsysops.com/index.md" },
+];
+const footer = `<div data-profullstack-footer data-site="${SITE}/" data-links='${JSON.stringify(footerLinks)}'>${footerHtmlSync({ site: SITE, links: footerLinks })}</div><script type="module" src="https://cdn.jsdelivr.net/npm/@profullstack/footer@latest/src/embed.js"></script>`;
 
 /**
  * The browser view: the Markdown source, verbatim, in a <pre>, with Markdown links and
@@ -72,7 +79,7 @@ body{margin:0;background:#fff;color:#111}
 pre{margin:0;padding:24px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:80ch}
 a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 @media (prefers-color-scheme:dark){body{background:#0d1117;color:#e6edf3}}
-</style></head><body><pre>${html}</pre></body></html>
+</style></head><body><pre>${html}</pre>${footer}</body></html>
 `;
 }
 
