@@ -3,6 +3,8 @@ FROM oven/bun:1.4
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
+COPY --chown=bun:bun package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
 COPY --chown=bun:bun . .
 USER bun
 EXPOSE 3000

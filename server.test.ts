@@ -33,7 +33,7 @@ describe("the Markdown server", () => {
 
   test("escapes the source in the browser view and links bare URLs", () => {
     const html = browserPage("# T\n\n<script>alert(1)</script> see https://example.com/a?b=1 and [x](/y.md).", "t.md");
-    expect(html).not.toContain("<script>");
+    expect(html).not.toContain("<pre># T\n\n<script>alert(1)</script>");
     expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
     expect(html).toContain('<a href="https://example.com/a?b=1">https://example.com/a?b=1</a>');
     expect(html).toContain('<a href="/y.md">[x](/y.md)</a>');

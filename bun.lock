@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "fleetsysops.com",
+      "dependencies": {
+        "@profullstack/footer": "latest",
+      },
+    },
+  },
+  "packages": {
+    "@profullstack/footer": ["@profullstack/footer@0.6.9", "", { "peerDependencies": { "react": ">=18" }, "optionalPeers": ["react"], "bin": { "profullstack-footer": "bin/profullstack-footer.js" } }, "sha512-IlLCHq4QHXI6Vj+69o+AC4ZNVSxr/9l+ycC/+Fv3dr5wie8d2mUT/b3go5HH+JmJArW6qE+pa/pRmWJAs0JoYg=="],
+  }
+}
