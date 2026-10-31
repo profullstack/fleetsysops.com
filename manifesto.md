@@ -4,10 +4,10 @@ A fleet is agents. Dozens of them, coding, deploying, posting and fixing at the 
 
 ## Summary: Merge and Launch (M&L)
 
-Once a change is reviewed and required CI passes, merge and launch it promptly. Then manually walk the real production user path, fix defects forward, and repeat the check from a fresh external request until the live behavior is verified. Test the shit out of it manually like our dads used to do in the 90s.
+After review and required CI pass, merge and launch promptly. Walk the production user path, fix forward, and verify live behavior from a fresh external request.
 
 - We test in prod and never rollback.
-- Merge and Launch (M&L): We merge and launch everything as quickly as possible, then test the shit out of it manually like our dads used to do in the 90s.
+- Merge and Launch (M&L): Ship promptly after review and required CI passes.
 - We build in prod.
 - We code in prod.
 - Root everywhere.
@@ -34,7 +34,7 @@ Once a change is reviewed and required CI passes, merge and launch it promptly. 
 
 **We test in prod and never rollback.** An agent's work is done when it is live and verified there, not when a test passed on a laptop. Prod is the only environment that tells the truth. When it breaks, the fix goes forward, on top of the break. There is no previous version to run back to, only the next one.
 
-**Merge and Launch (M&L).** We merge and launch everything as quickly as possible, then test the shit out of it manually like our dads used to do in the 90s. Once the change is reviewed and CI is green, get it live and walk the actual user path by hand. Find the rough edges in production and ship the fixes forward.
+**Merge and Launch (M&L).** Merge and launch each reviewed change as quickly as possible once required CI passes. Then test the shit out of it manually like our dads used to do in the 90s: walk the real production user path, fix forward, and verify the live result with a fresh external request.
 
 **We build in prod.** The agent builds on the box that serves. There is no pipeline standing between the agent and the user.
 
