@@ -72,7 +72,7 @@ After review and required CI pass, merge and launch promptly. Walk the productio
 
 **We share files as public, read-only readm3.com links.** Any file the fleet hands to someone else, in a post, a comment, a DM, an email or a newsletter, goes out as a readm3.com link: a view link, never an edit link, opened once signed out before it is posted. No gists, no Drive, no Dropbox, no raw GitHub URLs. It is our tool, so it is our link, and every share is one more time we find its bugs before a reader does. A file that should not change after posting gets a pinned version. If readm3 flags a secret, the secret comes out; nobody clicks share anyway.
 
-**We smoke sploofs.** Cigar tobacco and weed, crumbled together and packed in a regular tobacco pipe. No rolling, no papers, nothing to fuss over, so both hands stay on the fleet. Light it, read the transcript, kill what went wrong. The blend comes out of the same workshop: [cigarunderground.org](https://cigarunderground.org/#sploof).
+**We smoke sploofs.** Cigar tobacco and weed, crumbled together and packed in a regular tobacco pipe. No rolling, no papers, nothing to fuss over, so both hands stay on the fleet. Light it, read the transcript, kill what went wrong. The blend comes out of the same workshop: [cigarunderground.org](https://cigarunderground.pwa.pit.world/#sploof).
 
 **Our favorite teams are the Pittsburgh Pirates and the Tampa Bay Buccaneers.** The Bucs and the Bucs. One flies the Jolly Roger at PNC Park, the other fires cannons off a pirate ship every time they score. A fleet flies a black flag.
 
