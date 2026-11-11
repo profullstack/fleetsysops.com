@@ -79,7 +79,9 @@ body{margin:0;background:#fff;color:#111}
 pre{margin:0;padding:24px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:80ch}
 a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 @media (prefers-color-scheme:dark){body{background:#0d1117;color:#e6edf3}}
-</style></head><body><pre>${html}</pre>${footer}</body></html>
+</style>
+<script type="module" data-webmcp src="https://cdn.jsdelivr.net/npm/@profullstack/webmcp@0/src/embed.js" data-pages='{"home":"/","manifesto":"/manifesto"}'></script>
+</head><body><pre>${html}</pre>${footer}</body></html>
 `;
 }
 
