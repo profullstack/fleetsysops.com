@@ -18,6 +18,10 @@ After review and required CI pass, merge and launch promptly. Walk the productio
 - No Kubernetes. No cloud shit. Bare metal only.
 - `--yolo` mode enabled.
 - We scale when we need to.
+- Dual-stack by default. IPv4 and IPv6 on every box.
+- One fleet file. Nobody looks up a box twice.
+- Every backup has a second home.
+- A box is retired when the bill stops, not when the list changes.
 - We automate everything.
 - Every active agent posts a 10-second stand-up every 2-4 hours: done, next, blocked.
 - Everything ships with a TUI, a CLI, an MCP and an API.
@@ -58,6 +62,14 @@ After review and required CI pass, merge and launch promptly. Walk the productio
 
 **We scale when we need to.** More agents when there is more work. More boxes when one falls over. Nothing pre-provisioned, nothing predicted.
 
+**Dual-stack by default. IPv4 and IPv6 on every box.** A box with no IPv6 is invisible to half the clients that would have reached it and useless in every allowlist that pins both families. New boxes come up dual-stack at provisioning, every site gets an AAAA next to its A, and the check is `curl -6` from outside, not a glance at `ip addr`. A provider that cannot route a /64 gets a ticket the day the box arrives, not the day a user asks why the site will not load.
+
+**One fleet file. Nobody looks up a box twice.** Every box the fleet touches is one entry in one file: its nicknames, its IPv4 and IPv6, its provider, its account, what runs on it and how to get a shell. Agents read it before they guess. When a sysop asks "which server is this IP", the answer is a grep, not an afternoon of whois, old tickets and memory. The file is generated into something a human can skim, and it changes in the same commit as the box.
+
+**Every backup has a second home.** A backup that lives on one box is a backup until that box goes dark. Ours did: the only copy of every database sat on a server whose bill lapsed, and the nightly job failed for two days before anyone looked. Backups go to at least one box that is not the one they protect, and not one you are planning to stop paying for. The job alarms when a copy fails, and moving the destination is a one-line change somebody already tested.
+
+**A box is retired when the bill stops, not when the list changes.** We crossed a server off every list we keep, and it went on running, serving and billing for a year we had already paid. Retiring is an order of operations: move the data, move the names, stop the services, cancel the bill, then edit the lists, then verify from outside that it is really gone. Un-retiring is the same list backwards, and the box should never have noticed either.
+
 **Every active agent posts a 10-second stand-up every 2-4 hours.** Each update records Done, Next and Blocked in the task log. It takes ten seconds or less to write and read. There is no call and no waiting for the rest of the fleet. Raise a hard blocker immediately. If nothing changed, say so. The sysop uses the updates to clear dependencies, stop duplicate work and review finished slices. If an update changes no decision, shorten it.
 
 **A TUI, a CLI, an MCP and an API.** Everything we build ships all four, because the sysop works from a terminal and the agents work from a socket, and both need the same thing.
@@ -82,7 +94,7 @@ After review and required CI pass, merge and launch promptly. Walk the productio
 
 One person. A fleet of agents. Call it fleet coding if you like; the job is not to write the code. The job is to run the fleet: pick the work, read what came back, kill what went wrong, merge what did not. Everything above exists so one sysop can run many agents and still know what the fleet did.
 
-Signed in prod, 2026-09-21.
+Signed in prod, 2026-09-21. Amended in prod, 2026-11-15.
 
 Disagree? Send a pull request. An agent will merge it in prod.
 
