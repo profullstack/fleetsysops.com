@@ -10,9 +10,10 @@
  * readm3.com render. Every response allows any origin, which is what lets readm3.com
  * fetch the file.
  *
- * Nothing that is not a Markdown file is ever served.
+ * Nothing that is not a Markdown file is ever served, except the two files crawlers
+ * ask for: `/robots.txt` and `/sitemap.xml`, both generated from the Markdown files.
  */
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, relative, sep } from "node:path";
 import { footerHtmlSync } from "@profullstack/footer";
 
@@ -85,6 +86,36 @@ a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 `;
 }
 
+/** Every public document, as a path under the root: each `.md` file but 404.md, skipping dot directories. */
+export function pages(dir = root): string[] {
+  const found: string[] = [];
+  for (const name of readdirSync(dir)) {
+    if (name.startsWith(".") || name === "node_modules") continue;
+    const path = join(dir, name);
+    if (statSync(path).isDirectory()) found.push(...pages(path));
+    else if (name.endsWith(".md") && relative(root, path) !== "404.md") found.push(relative(root, path).split(sep).join("/"));
+  }
+  return found.sort((a, b) => (a === "index.md" ? -1 : b === "index.md" ? 1 : a.localeCompare(b)));
+}
+
+/** The newest YYYY-MM-DD a document mentions (its signed / amended line), or null. */
+export function lastmod(source: string): string | null {
+  const today = new Date().toISOString().slice(0, 10);
+  const dates = [...source.matchAll(/\b(20\d\d-[01]\d-[0-3]\d)\b/g)].map((m) => m[1]!).filter((d) => d <= today);
+  return dates.sort().at(-1) ?? null;
+}
+
+export function sitemapXml(): string {
+  const urls = pages().map((page) => {
+    const loc = page === "index.md" ? `${SITE}/` : `${SITE}/${page}`;
+    const date = lastmod(readFileSync(join(root, page), "utf8"));
+    return `  <url><loc>${loc}</loc>${date ? `<lastmod>${date}</lastmod>` : ""}</url>`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`;
+}
+
+export const robotsTxt = () => `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`;
+
 function headers(request: Request, extra: Record<string, string> = {}): Headers {
   return new Headers({
     "content-type": contentType(request),
@@ -111,6 +142,13 @@ export function handle(request: Request): Response {
   }
   if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
     return Response.redirect(`${url.origin}${url.pathname.replace(/\/+$/, "")}${url.search}`, 308);
+  }
+
+  if (url.pathname === "/robots.txt" || url.pathname === "/sitemap.xml") {
+    const xml = url.pathname === "/sitemap.xml";
+    const body = xml ? sitemapXml() : robotsTxt();
+    const type = xml ? "application/xml; charset=utf-8" : "text/plain; charset=utf-8";
+    return new Response(request.method === "HEAD" ? null : body, { status: 200, headers: headers(request, { "content-type": type }) });
   }
 
   if (url.pathname.endsWith(".html")) {
