@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { browserPage, handle, resolve, root, SITE } from "./server.ts";
+import { browserPage, handle, lastmod, resolve, root, SITE } from "./server.ts";
 
 const get = (path: string, init: RequestInit & { host?: string } = {}) => {
   const { host, ...rest } = init;
@@ -75,6 +75,27 @@ describe("the Markdown server", () => {
     }
     expect(resolve("/../../etc/passwd")).toBeNull();
     expect(resolve("/.git/HEAD.md")).toBeNull();
+  });
+
+  test("serves robots.txt naming the sitemap, and a sitemap of every page but 404.md", async () => {
+    const robots = get("/robots.txt", { headers: { accept: "text/html" } });
+    expect(robots.status).toBe(200);
+    expect(robots.headers.get("content-type")).toBe("text/plain; charset=utf-8");
+    expect(await robots.text()).toContain(`Sitemap: ${SITE}/sitemap.xml`);
+    const sitemap = get("/sitemap.xml");
+    expect(sitemap.status).toBe(200);
+    expect(sitemap.headers.get("content-type")).toBe("application/xml; charset=utf-8");
+    const xml = await sitemap.text();
+    expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(xml).toContain(`<loc>${SITE}/</loc>`);
+    expect(xml).toContain(`<loc>${SITE}/manifesto.md</loc>`);
+    expect(xml).not.toContain("404.md");
+    expect(xml).not.toContain("index.md");
+  });
+
+  test("dates a page by the newest day it mentions", () => {
+    expect(lastmod("Signed in prod, 2026-09-21. Amended in prod, 2026-11-15.")).toBe("2026-11-15");
+    expect(lastmod("no dates here")).toBeNull();
   });
 
   test("answers preflight and refuses writes", () => {
